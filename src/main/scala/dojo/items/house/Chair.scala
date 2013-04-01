@@ -1,5 +1,7 @@
 package dojo.items.house
 
-class Chair extends HouseItem {
+import dojo.items.Purchasable
+
+class Chair extends HouseItem with Purchasable {
 
 }

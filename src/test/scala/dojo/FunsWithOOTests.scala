@@ -1,6 +1,9 @@
 package dojo
 
-import items.{Purchasable, TimedItem, User}
+import items.artifacts.{MachineGunUnicorn, Unicorn}
+import items.fashion.Hat
+import items.house.Chair
+import items.{Item, Purchasable, TimedItem, User}
 import org.scalatest.junit.JUnitRunner
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
@@ -11,39 +14,44 @@ class FunsWithOOTests extends FunSuite with ShouldMatchers{
 
   // all items should have an id
   test("Unicorn should have id of 1"){
-    assert(false)
+    val unicorn = new Unicorn()
+    assert(unicorn.id equals 1)
   }
 
   test("anonymous items should have an id"){
-    assert(false)
+    val item = new Item(427) {
+    }
+    item.id
   }
 
   // all fashion and house items should be able to be bought for cash deducted from user
 
   test("should buy hat and deduct 5 cash from user"){
-    assert(false)
-    //assertPurchasableItemCashDeduction(hat)
+    val hat:Hat = new Hat()
+    hat.price = 5
+    assertPurchasableItemCashDeduction(hat)
   }
 
   test("should buy chair and deduct 3 cash from user"){
-    assert(false)
-    //assertPurchasableItemCashDeduction(chair)
+    val chair:Chair = new Chair()
+    chair.price = 3
+    assertPurchasableItemCashDeduction(chair)
   }
 
   def assertPurchasableItemCashDeduction(item:Purchasable){
     val balance = 10
     val user = new User(balance)
     user.buy(item)
-    // result needs to be asserted
+    user.cash should equal (10 - item.price)
   }
 
   // MachineGunUnicorn and JukeBox have special actions that are available a set time after creation
   // * MachineGunUnicorn prints Bam-Bam
-  // * JukeBox prints Blah-Blah
+  // * JukeBox prints Blah-Blah                  
 
   test("MachineGunUnicorn goes Bam-Bam"){
-    assert(false)
-    //assertTimedItem(Some("Bam-Bam"), machineGunUnicorn, delay)
+    val machineGunUnicorn:MachineGunUnicorn = new MachineGunUnicorn()
+    assertTimedItem(Some("Bam-Bam"), machineGunUnicorn, delay)
   }
 
   test("JukeBox goes Blah-Blah"){
